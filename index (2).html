@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция OQU</title>
+    <style>
+        :root {
+            --primary: #0045E6;
+            --primary-light: #edf2ff;
+            --bg: #f4f7f6;
+            --text: #333;
+            --faq-border: #0045E6;
+            --faq-bg: #f8fafc;
+            --notice-bg: #e8f5e9;
+            --notice-border: #4caf50;
+        }
+
+        body, html { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; scroll-behavior: smooth; background: var(--bg); color: var(--text); }
+
+        /* ЭКРАН 1 */
+        .hero-section {
+            background-color: var(--primary);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .btn-main {
+            display: inline-block;
+            padding: 18px 45px;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 900;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        /* ЭКРАН 2 */
+        .intro-section {
+            background-color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .intro-text {
+            font-size: 2.2rem;
+            line-height: 1.4;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 40px;
+        }
+
+        .btn-next-step {
+            padding: 18px 50px;
+            font-size: 1.1rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        /* МАКЕТ */
+        .main-layout { display: flex; min-height: 100vh; }
+
+        /* САЙДБАР */
+        .sidebar {
+            width: 320px;
+            background: white;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 20px 15px;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .sidebar-part-title {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 6px 10px;
+            border-radius: 50px;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .sidebar-nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 9px 12px;
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            transition: all 0.2s ease;
+        }
+        .sidebar-nav-link::after {
+            content: '→';
+            font-weight: bold;
+            opacity: 0.4;
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+        .sidebar-nav-link:hover {
+            color: var(--primary);
+            background: #fafafa;
+            border-color: var(--primary);
+            transform: translateX(3px);
+            box-shadow: 0 2px 6px rgba(0, 69, 230, 0.04);
+        }
+        .sidebar-nav-link:hover::after {
+            opacity: 1;
+            transform: translateX(2px);
+        }
+
+        .sidebar-faq-box {
+            margin-top: auto;
+            padding: 12px 10px;
+            background: #f8fafc;
+            border: 2px dashed var(--primary);
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .sidebar-faq-box:hover {
+            background: var(--primary-light);
+        }
+        .sidebar-faq-box a { 
+            font-weight: 800; 
+            color: var(--primary) !important; 
+            font-size: 0.9rem; 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            display: block;
+        }
+
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .content { flex: 1; padding: 50px; max-width: 900px; }
+
+        .white-box {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            margin-bottom: 35px;
+        }
+
+        .part-header-box {
+            background: var(--primary-light);
+            border: 2px solid var(--primary);
+            padding: 25px 35px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 69, 230, 0.05);
+        }
+        .part-header-box h2 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-break-block {
+            page-break-before: always;
+            break-before: page;
+            margin-top: 20px;
+        }
+
+        .step-title {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 15px;
+        }
+        .step-label { color: var(--primary); font-weight: 900; white-space: nowrap; }
+
+        /* Зеленая рамка со значком восклицательного знака */
+        .green-notice {
+            background-color: var(--notice-bg);
+            border: 2px solid var(--notice-border);
+            border-radius: 12px;
+            padding: 20px 20px 20px 55px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #2e7d32;
+            position: relative;
+        }
+        .green-notice::before {
+            content: "!";
+            position: absolute;
+            left: 18px;
+            top: 20px;
+            width: 22px;
+            height: 22px;
+            background-color: #2e7d32;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .green-notice p { margin: 0; }
+        .green-notice p:not(:last-child) { margin-bottom: 10px; }
+
+        .step-auth { margin-bottom: 35px; padding-left: 45px; position: relative; }
+        .step-auth::before {
+            content: attr(data-step);
+            position: absolute; left: 0; top: 0;
+            width: 28px; height: 28px;
+            background: var(--primary); color: white;
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 0.9rem; font-weight: bold;
+        }
+
+        .instruction-img { width: 100%; border-radius: 10px; margin: 15px 0; border: 1px solid #eee; display: block; }
+
+        .content-next-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .content-next-btn:hover {
+            box-shadow: 0 4px 12px rgba(0, 69, 230, 0.2);
+        }
+        
+        .step-footer-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            opacity: 0.9;
+        }
+        .step-footer-btn:hover {
+            opacity: 1;
+            box-shadow: 0 2px 8px rgba(0,69,230,0.2);
+        }
+
+        /* FAQ STYLE */
+        .faq-box {
+            background: var(--faq-bg) !important;
+            border: 1px solid #e2e8f0;
+        }
+        .faq-title-main {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0;
+        }
+        .faq-category-title { 
+            color: #475569; 
+            border-bottom: 2px solid #e2e8f0; 
+            padding-bottom: 5px; 
+            margin: 30px 0 15px 0; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+        }
+        details { background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--faq-border); box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+        summary { font-weight: bold; cursor: pointer; outline: none; color: #1e293b; }
+        .faq-ans { padding-top: 15px; font-size: 0.95rem; line-height: 1.6; color: #475569; }
+    </style>
+</head>
+<body>
+
+    <section class="hero-section">
+        <div style="max-width: 850px; padding: 20px;">
+            <h1 style="font-size: 2.5rem; font-weight: 800;">Уважаемые сотрудники организаций среднего образования!</h1>
+            <p style="font-size: 1.4rem; opacity: 0.9;">Данная инструкция по приему заявок на зачисление в 1 класс предназначена для директоров и сотрудников школ и отвечает на все вопросы, связанные с пользованием платформой.</p>
+            <a href="#intro" class="btn-main">ДАЛЕЕ</a>
+        </div>
+    </section>
+
+    <section id="intro" class="intro-section">
+        <div style="max-width: 900px;">
+            <div class="intro-text">
+                Для начала директору школы нужно подготовить личный кабинет на платформе. <br> 
+                <span style="color: var(--primary);">Для этого, ознакомьтесь с подготовительной частью.</span>
+            </div>
+            <a href="#guide-start" class="btn-next-step">НАЧАТЬ</a>
+        </div>
+    </section>
+
+    <div class="main-layout" id="guide-start">
+        
+        <div class="sidebar">
+            <div>
+                <div class="sidebar-part-title">⚙️ Часть I. Подготовка</div>
+                <a href="#step1" class="sidebar-nav-link">1. Авторизация</a>
+                <a href="#step2" class="sidebar-nav-link">2. Добавление сотрудников</a>
+                <a href="#step3" class="sidebar-nav-link">3. Лимиты классов</a>
+                <a href="#step4" class="sidebar-nav-link">4. Микроучастки</a>
+                
+                <div class="sidebar-part-title">📋 Часть II. Обработка</div>
+                <a href="#step5" class="sidebar-nav-link">5. Проверить заявки</a>
+                <a href="#step6" class="sidebar-nav-link">6. Подписать заявки</a>
+            </div>
+            
+            <div class="sidebar-faq-box">
+                <a href="#questions">❔ Часто задаваемые вопросы</a>
+            </div>
+        </div>
+
+        <div class="content">
+            
+            <div class="page-break-block part-header-box">
+                <h2><span>⚙️</span> Часть I. Подготовка к принятию заявок</h2>
+            </div>
+                
+            <div class="white-box" id="step1">
+                <div class="step-title"><span class="step-label">Шаг-1.</span><span>Авторизация</span></div>
+                <div class="step-auth" data-step="1"><p>Перейдите по ссылке <a href="https://oqu.edu.kz/" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: underline;">https://oqu.edu.kz/</a>, и нажмите на кнопку «Войти».</p><img src="step1.jpg" class="instruction-img"></div>
+                <div class="step-auth" data-step="2"><p>Авторизуйтесь на портале одним из доступных способов: ЭЦП или eGov. Директор может авторизоваться как через ЭЦП физического лица, так и через ЭЦП юридического лица. При этом учтите, что для подписания заявок обязательно требуется ЭЦП юридического лица.</p><img src="step2.jpg" class="instruction-img"></div>
+                <div class="step-auth" data-step="3"><p>Если вы авторизовываетесь через ЭЦП, то на ваш номер, зарегистрированный в Базе мобильных граждан, поступит SMS с пятизначным кодом. Введите его и нажмите кнопку «Войти в систему».</p><img src="step3.jpg" class="instruction-img"></div>
+                <div class="step-auth" data-step="4"><p>Нажмите на кнопку «Разрешить».</p><img src="step4.jpg" class="instruction-img"></div>
+                <div class="step-auth" data-step="5"><p>Предоставьте согласие на сбор и обработку персональных данных. На ваш номер поступит SMS от 1414, на него нужно ответить текстом 511.</p><img src="step5.jpg" class="instruction-img"></div>
+                
+                <div style="text-align: right; margin-top: 20px;">
+                    <a href="#step2" class="step-footer-btn">Далее: Шаг 2 →</a>
+                </div>
+            </div>
+
+            <div class="white-box" id="step2">
+                <div class="step-title"><span class="step-label">Шаг-2.</span><span>Добавить сотрудников: исполнителей и ОСО</span></div>
+                <div class="green-notice">
+                    Директор может самостоятельно проверять заявки, не добавляя сотрудников. Однако, в большинстве случаев, этим также занимаются другие сотрудники, поэтому их необходимо добавить заранее. 
+                    <br><br>
+                    Добавлять на платформу нужно только тех сотрудников, которые будут работать с заявками по зачислением в 1 класс. Заранее определите сотрудников, которые будут заниматься паспортизацией (смотреть микроучастки, лимиты) и принимать решения по заявкам.
+                </div>
+                <div class="step-auth" data-step="1"><p>Перейдите в раздел «Персонал», нажмите «Добавить». Каждого сотрудника нужно добавлять по отдельности.</p><img src="step6.jpg" class="instruction-img"></div>
+                <div class="step-auth" data-step="2"><p>Введите ИИН сотрудника и нажмите «Отправить».</p><img src="step7.jpg" class="instruction-img"></div>
+                <div class="step-auth" data-step="3"><p>На телефон сотрудника поступит SMS от 1414 — попросите его ответить на него согласием. После, нажмите кнопку «Далее».</p><img src="step8.jpg" class="instruction-img"></div>
+                <div class="step-auth" data-step="4"><p>Далее выберите должность и присвойте роль — «Сотрудник ОСО» или «Исполнитель» (можно назначить обе роли одновременно).</p><p>«Сотрудник ОСО» отвечает за редактирование лимитов, микроучастки и контингента. «Исполнитель», в свою очередь, обрабатывает поступившие заявки.</p><img src="step9.jpg" class="instruction-img"></div>
+                
+                <div style="text-align: right; margin-top: 20px;">
+                    <a href="#step3" class="step-footer-btn">Далее: Шаг 3 →</a>
+                </div>
+            </div>
+                
+            <div class="white-box" id="step3">
+                <div class="step-title"><span class="step-label">Шаг-3.</span><span>Проверить и отредактировать лимиты классов</span></div>
+                
+                <div class="green-notice">
+                    Проверить и отредактировать лимиты классов доступно как Директору, так и Сотруднику ОСО.
+                    <br><br>
+                    Лимиты классов (количество свободных мест) определяется отдельно для каждой параллели, учитывая класс, язык обучения и текущий учебный год.
+                    <br><br>
+                    <b>Правила распределения мест:</b><br>
+                    Для тех, кто подает вне микроучастка, выделяется ровно четверть из общего количества мест.<br>
+                    Все остальные места отдаются тем, кто относится к школе по адресу прописки (по микроучастку).
+                    <br><br>
+                    <i>Например, если в 1 классах всего 40 мест, 10 мест выделяется для тех, кто подал заявку вне микроучастка, 30 мест остается для тех, кто прикреплен к школе по микроучастку.</i>
+                    <br><br>
+                    <b>Важно:</b> Все данные автоматически загружаются из Национальной образовательной базы данных 2.0 (НОБД). Пожалуйста, при необходимости проверьте свои лимиты заранее.
+                </div>
+
+                <div class="step-auth" data-step="1">
+                    <p>Зайдите в личный кабинет и перейдите в раздел «Моя организация» → «Лимиты классов». Раздел находится по ссылке: <a href="https://oqu.edu.kz/organization/class-limits" target="_blank">https://oqu.edu.kz/organization/class-limits</a></p>
+                    <p>В этом разделе вы можете увидеть общее количество мест и общее количество классов.</p>
+                    <img src="step10.png" class="instruction-img">
+                </div>
+
+                <div class="step-auth" data-step="2">
+                    <p>Выберите необходимый класс и нажмите на иконку «Редактировать».</p>
+                    <img src="step11.png" class="instruction-img">
+                </div>
+
+                <div class="step-auth" data-step="3">
+                    <p>Внесите изменения и нажмите «Сохранить». На каждый язык обучения создается своя параллель.</p>
+                    <img src="step12.png" class="instruction-img">
+                </div>
+
+                <div class="step-auth" data-step="4">
+                    <p>При необходимости вы можете добавить новый лимит. Для этого нажмите кнопку «Добавить».</p>
+                    <img src="step13.png" class="instruction-img">
+                </div>
+
+                <div class="step-auth" data-step="5">
+                    <p>Далее выберите язык обучения и укажите количество классов и количество мест в классе. Нажмите кнопку «Сохранить».</p>
+                    <img src="step13.png" class="instruction-img">
+                </div>
+                
+                <div style="text-align: right; margin-top: 20px;">
+                    <a href="#step4" class="step-footer-btn">Далее: Шаг 4 →</a>
+                </div>
+            </div>
+                
+            <div class="white-box" id="step4">
+                <div class="step-title"><span class="step-label">Шаг-4.</span><span>Проверить и отредактировать микроучастки</span></div>
+                
+                <div class="green-notice">
+                    Данный функционал доступен только Директору.
+                </div>
+
+                <div class="step-auth" data-step="1">
+                    <p>Перейдите в раздел «Моя организация» → «Микроучастки».</p>
+                    <img src="step14.png" class="instruction-img">
+                </div>
+
+                <div class="step-auth" data-step="2">
+                    <p>На данной странице будут отображены микроучастки, закрепленные за вашей организацией. Для того чтобы добавить новый микроучасток, нажмите «Добавить адрес».</p>
+                    <img src="step15.png" class="instruction-img">
+                </div>
+
+                <div class="step-auth" data-step="3">
+                    <p>В открывшемся окне введите улицу и нажмите «Найти». Далее выберите нужный адрес и нажмите «Привязать». Вы можете привязать несколько адресов.</p>
+                    <img src="step16.png" class="instruction-img">
+                </div>
+
+                <div class="step-auth" data-step="4">
+                    <p>Чтобы удалить адрес, нажмите кнопку «Отвязать» в строке выбранного адреса.</p>
+                    <img src="step17.png" class="instruction-img">
+                </div>
+
+                <div style="background: #f1f5f9; padding: 25px; border-radius: 12px; margin-top: 40px; border-left: 5px solid var(--primary);">
+                    <p style="font-size: 1.1rem; font-weight: bold; margin: 0 0 10px 0; color: #1e293b;">Подготовка личного кабинета завершена.</p>
+                    <p style="margin: 0 0 10px 0; color: #334155;">Желаем успехов в ваших новых начинаниях на нашей платформе!</p>
+                    <p style="margin: 0; color: #334155; font-size: 0.95rem;">Если у вас остались вопросы, то ответ на них вы найдете в разделе <a href="#questions" style="color: var(--primary); font-weight: bold; text-decoration: underline;">"ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ"</a>.</p>
+                </div>
+
+                <div style="margin-top: 30px; text-align: right;">
+                    <a href="#step5" class="content-next-btn">Перейти к обработке заявок →</a>
+                </div>
+            </div>
+
+
+            <div class="page-break-block part-header-box">
+                <h2><span>📋</span> Часть II. Как обрабатывать заявки?</h2>
+            </div>
+                
+            <div class="white-box" id="step5">
+                <div class="step-title"><span class="step-label">Шаг-5.</span><span>Проверить заявки</span></div>
+                
+                <div class="green-notice">
+                    <p>Прежде чем приступить к обработке заявок, убедитесь, что все подготовительные шаги выполнены согласно инструкции.</p>
+                    <p>Затем переходим к обработке заявок. Эту задачу можете передать в работу Исполнителю.</p>
+                </div>
+
+                <div class="step-auth" data-step="1">
+                    <p><b>Срок обработки:</b> 1 рабочий день с момента поступления.</p>
+                    <p>Авторизуйтесь в роли «Исполнителя». Перейдите в раздел «Государственные услуги» → «Необработанные заявки» по ссылке: <a href="https://oqu.edu.kz/organization/gov-services" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: underline;">https://oqu.edu.kz/organization/gov-services</a></p>
+                    <img src="step18.png" class="instruction-img" alt="Экран необработанных заявок">
+                </div>
+
+                <div class="step-auth" data-step="2">
+                    <p>Нажмите на иконку глаза рядом с заявкой и откройте карточку заявки. Примите решение и нажмите кнопку «Принять» или «Отказать».</p>
+                    <img src="step19.png" class="instruction-img" alt="Просмотр карточки заявки">
+                </div>
+
+                <div class="step-auth" data-step="3">
+                    <p>При принятии заявки нажмите кнопку «Принять» и заявка переходит на статус «Принято».</p>
+                    <img src="step20.png" class="instruction-img" alt="Подтверждение принятия заявки">
+                </div>
+
+                <div class="step-auth" data-step="4">
+                    <p>При отказе нажмите «Отказать», укажите причину и заявка получает статус «Отказано». Далее нажмите кнопку «Подтвердить и отправить».</p>
+                    <img src="step21.png" class="instruction-img" alt="Указание причины отказа">
+                    <img src="step22.png" class="instruction-img" alt="Финальная отправка отказа">
+                </div>
+
+                <div style="text-align: right; margin-top: 20px;">
+                    <a href="#step6" class="step-footer-btn">Далее: Шаг 6 →</a>
+                </div>
+            </div>
+
+            <div class="white-box" id="step6">
+                <div class="step-title"><span class="step-label">Шаг-6.</span><span>Подписать заявки</span></div>
+                
+                <div class="green-notice">
+                    <p>После проверки всех документов Исполнителем, финальное решение утверждается Директором организации образования посредством подписания приказа в системе.</p>
+                </div>
+
+                <p>Авторизуйтесь в роли «Директора» и подпишите заявку.</p>
+                <p>Нажмите кнопку «Подписать прием» и подпишите документ с помощью QR-кода eGov Business или ЭЦП юридического лица.</p>
+                
+                <img src="step23.png" class="instruction-img" alt="Подписание заявки">
+
+                <p>Если вы не согласны с решением Исполнителя, нажмите кнопку «На доработку» и заполните причину отказа.</p>
+                
+                <img src="step24.png" class="instruction-img" alt="Отправка на доработку - Шаг 1">
+                <img src="step25.png" class="instruction-img" alt="Отправка на доработку - Шаг 2">
+
+                <div class="green-notice">
+                    <p><b>Данный функционал доступен только Директору и требует наличия ЭЦП юридического лица.</b></p>
+                </div>
+                
+                <div style="text-align: right; margin-top: 30px;">
+                    <a href="#questions" class="content-next-btn">Перейти к часто задаваемым вопросам</a>
+                </div>
+            </div>
+
+
+            <div class="white-box faq-box page-break-block" id="questions">
+                <h2 class="faq-title-main">Часто задаваемые вопросы</h2>
+                
+                <h4 class="faq-category-title">Вход и авторизация</h4>
+                <details><summary>Директор заходит в систему, но не видит свою школу. Что делать?</summary><div class="faq-ans">Это может произойти, если в НОБД (Национальная образовательная база данных) ИИН директора не закреплен за данной организацией или отсутствует актуальный приказ о назначении. Директору необходимо обратиться в местный отдел образования для актуализации данных в НОБД.</div></details>
+                <details><summary>Обязательно ли директору иметь ЭЦП юридического лица?</summary><div class="faq-ans">Для авторизации (входа) в систему можно использовать ЭЦП физического лица. Однако для финального подписания приказов о зачислении детей ЭЦП юридического лица (на имя директора) обязательна.</div></details>
+
+                <h4 class="faq-category-title">Персонал</h4>
+                <details><summary>Что делать, если сотрудник не получает SMS от 1414 при добавлении в систему?</summary><div class="faq-ans">Сотруднику необходимо проверить, зарегистрирован ли его номер телефона в Базе мобильных граждан (BMG). Сделать это можно на портале eGov.kz или через мобильное приложение eGov Mobile. Без регистрации в BMG получение SMS-подтверждения невозможно.</div></details>
+                <details><summary>Можно ли удалить сотрудника из системы, если он уволился?</summary><div class="faq-ans">Да, директор может зайти в раздел «Персонал» and отозвать доступ (удалить) у любого ранее добавленного сотрудника.</div></details>
+
+                <h4 class="faq-category-title">Микроучастки и Лимиты</h4>
+                <details><summary>Что делать, если родитель утверждает, что его адрес относится к школе, но система этого не видит?</summary><div class="faq-ans">Школе необходимо проверить список своих микроучастков в разделе «Паспортизация». Если адрес действительно относится к вам, но отсутствует в списке, сотрудник с ролью «Сотрудник ОСО» должен добавить этот адрес (улицу и номера домов) вручную.</div></details>
+                <details><summary>Как изменить лимит мест в классах, если прием уже начался?</summary><div class="faq-ans">Лимиты можно корректировать в разделе «Классы». Однако рекомендуется делать это до массового поступления заявок, чтобы избежать технических ошибок при распределении мест.</div></details>
+
+                <h4 class="faq-category-title">Обработка заявок</h4>
+                <details><summary>Какой срок установлен для проверки заявки школой?</summary><div class="faq-ans">С момента поступления заявки в личный кабинет школы у ответственного сотрудника есть 5 рабочих дней на проверку документов и принятия решения (зачислить или отказать).</div></details>
+                <details><summary>Что делать, если решение по заявке было принято ошибочно?</summary><div class="faq-ans">Если решение (статус) уже подписано ЭЦП и отправлено родителю, изменить его в системе самостоятельно невозможно. В таких случаях необходимо обращаться в службу технической поддержки портала или районный отдел образования.</div></details>
+                <details><summary>Родитель подал заявку, но она не отображается в списке?</summary><div class="faq-ans">Убедитесь, что родитель завершил подачу заявки и она перешла в статус «На рассмотрении в школе». Также проверьте фильтры в списке заявок (возможно, установлена фильтрация по языку обучения или дате).</div></details>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
